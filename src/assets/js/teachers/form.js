@@ -39,7 +39,7 @@ export const fieldConfigurations = [
         validations: [
             {
                 errorId: `${formElements.fields.description.id}Required`,
-                errorMessage: 'La descripción es obligatorio.',
+                errorMessage: 'La descripción es obligatoria.',
                 validationFunction: (value) => {
                     return value.trim() !== '';
                 }
@@ -55,6 +55,13 @@ export const fieldConfigurations = [
                 errorMessage: 'El correo electrónico es obligatorio.',
                 validationFunction: (value) => {
                     return value.trim() !== '';
+                }
+            },
+            {
+                errorId: `${formElements.fields.email.id}Pattern`, //Template literals
+                errorMessage: "El correo electrónico no cumple con el formato correcto.",
+                validationFunction: (value) => {
+                    return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value);
                 }
             }
         ]
@@ -91,4 +98,14 @@ export function getFormData() {
 
 export function resetForm() {
     formElements.form.reset();
+}
+
+export function setFormData(teacher) {
+
+    const { id, name, description, email, birthDate } = teacher;
+    formElements.fields.name.value = name;
+    formElements.fields.description.value = description;
+    formElements.fields.email.value = email;
+    formElements.fields.birthDate.value = birthDate;
+
 }
